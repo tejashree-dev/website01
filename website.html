@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>One Page Portfolio</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f7f7f7;
+      color: #333;
+    }
+
+    header {
+      background: #4A90E2;
+      padding: 30px;
+      text-align: center;
+      color: white;
+    }
+
+    section {
+      padding: 40px;
+      text-align: center;
+    }
+
+    .button {
+      padding: 10px 20px;
+      background: #4A90E2;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+
+    .button:hover {
+      background: #357ABD;
+    }
+
+    footer {
+      background: #eee;
+      padding: 20px;
+      text-align: center;
+      font-size: 14px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Welcome to My One Page Website</h1>
+    <p>This is a simple site using only HTML, CSS, and JavaScript in one file.</p>
+  </header>
+
+  <section>
+    <h2>About Me</h2>
+    <p>Hello! I'm learning web development. This is a single-page site built from scratch.</p>
+    <button class="button" onclick="showMessage()">Click Me</button>
+    <p id="message" style="margin-top: 20px; font-weight: bold;"></p>
+  </section>
+
+  <footer>
+    &copy; 2025 MyPortfolio | Made with ❤️
+  </footer>
+
+  <script>
+    function showMessage() {
+      document.getElementById("message").innerText = "You clicked the button! 🎉";
+    }
+  </script>
+
+</body>
+</html>
+
