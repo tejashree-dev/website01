@@ -1,4 +1,4 @@
-pipipeline{
+pipeline{
     agent any
     environment {
         GIT_REPO = "https://github.com/tejashree-dev/website01.git"
