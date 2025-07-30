@@ -21,12 +21,17 @@ pipeline{
      }
      stage ('push docker image'){
         steps {
-            
+            sh "docker push $(DOCKER_IMAGE)"
         }
      }
      stage ('ec2 instance') {
         steps{
 
+        }
+     }
+     post {
+        always{
+            echo "pipeline is completed"
         }
      }
     }
