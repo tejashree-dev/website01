@@ -1,0 +1,34 @@
+pipeline{
+    agent any
+    environment{
+        GIT_REPO = "https://github.com/tejashree-dev/website01.git"
+        GIT_BRANCH = "master"
+        DOCKER_IMAGE = "warkad/newprojec"
+        DOCKER_CREDENTIALS = ""
+
+    }
+    stages{
+        stage ('git-repo stage') {
+            steps{
+             git credentialsId: '', url: "${GIT_REPO}" , branch: "${GIT_BRANCH}"
+            }
+            }
+        }
+        stage ('create docker image'){
+        steps {
+            sh "docker build -t $ (DOCKER_IMAGE) ."
+        }
+     }
+     stage ('push docker image'){
+        steps {
+            
+        }
+     }
+     stage ('ec2 instance') {
+        steps{
+
+        }
+     }
+    }
+
+}
