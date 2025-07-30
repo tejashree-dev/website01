@@ -1,39 +1,50 @@
-pipeline{
+pipipeline{
     agent any
-    environment{
+    environment {
         GIT_REPO = "https://github.com/tejashree-dev/website01.git"
         GIT_BRANCH = "master"
-        DOCKER_IMAGE = "warkad/newprojec"
-        DOCKER_CREDENTIALS = ""
-
+        DOCKER_IMAGE = "warkad/newproject"
+        DOCKER_CREDENTIALS = "docker1"
+  
     }
-    stages{
-        stage ('git-repo stage') {
+    stages{ 
+        stage ('git clone repo'){
             steps{
-             git credentialsId: '', url: "${GIT_REPO}" , branch: "${GIT_BRANCH}"
+                git credentialsId: 'github11', url: "${GIT_REPO}" , branch: "${GIT_BRANCH}"
             }
+        }
+        stage ('creat docker image'){
+            steps{
+                sh "docker build -t ${DOCKER_IMAGE} ."
             }
         }
-        stage ('create docker image'){
-        steps {
-            sh "docker build -t $ (DOCKER_IMAGE) ."
-        }
-     }
-     stage ('push docker image'){
-        steps {
-            sh "docker push $(DOCKER_IMAGE)"
-        }
-     }
-     stage ('ec2 instance') {
-        steps{
+        stage ('push docker image to dockerhub'){
+            steps{
+                script{
+                    withDockerRegistry(credentialsId: 'docker1') {
+                        sh "docker push ${DOCKER_IMAGE}"
+                    }
+                }
+
+            }
 
         }
-     }
-     post {
-        always{
-            echo "pipeline is completed"
+        stage ('ec2 deploying'){
+            steps{
+                sshagent(['sshkey1']) {
+              sh '''
+        ssh -o StrictHostKeyChecking=no ubuntu@54.227.228.141 "
+            docker pull warkad/self_project &&
+            docker run -d -p 80:80 warkad/newproject
+          "
+             '''
+               }
+            }
         }
-     }
     }
-
+    post{
+        always{
+            echo "pipeline has successfully completed."
+        }
+    }
 }
